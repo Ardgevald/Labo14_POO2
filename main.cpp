@@ -6,14 +6,19 @@
  */
 
 #include <cstdlib>
-
-using namespace std;
+#include "cstring.h"
 
 /*
  * 
  */
 int main(int argc, char** argv) {
 
+    String s1;
+    String s2("Bonjour");
+    
+    //s1.display();
+    s2.display();
+    
     return 0;
 }
 

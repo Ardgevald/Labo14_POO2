@@ -7,12 +7,25 @@
 
 #include "cstring.h"
 
-String::String() {
+#include <string.h>
+#include <stdio.h>
+
+String::String(){
+    String("");
 }
 
-String::String(const String& orig) {
+String::String(const char* const string){
+    int i;
+    for (i = 0; i < strlen(string) ; i++) {
+        *(this->string + i) = *(string + i);
+    }
+    *(this->string + i) = END;
 }
 
 String::~String() {
+    
 }
 
+void String::display(){
+    printf("%s\n", string);
+}
