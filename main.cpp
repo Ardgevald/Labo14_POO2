@@ -5,19 +5,31 @@
  * Created on 17. mars 2017, 14:23
  */
 
+#include <typeinfo>
 #include <cstdlib>
+#include <iostream>
 #include "cstring.h"
+
+
+using namespace std;
 
 /*
  * 
  */
 int main(int argc, char** argv) {
 
-    String s1;
-    String s2("Bonjour");
+    String s1("Test");
+    String s2("Test2");
+    String s3(s2);
+    String s4('T');
+    String s5(95);
     
-    //s1.display();
+    
+    s1.display();
     s2.display();
+    s3.display();
+    s4.display();
+    s5.display();
     
     return 0;
 }

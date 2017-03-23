@@ -20,7 +20,7 @@ public:
     
     void display();
     
-    int size() const;
+    unsigned size() const;
     const char* asCharArray();
     
     virtual ~String();
