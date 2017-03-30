@@ -16,18 +16,23 @@ String::String(){
 }
 
 String::String(const char* const string){
-    
     this->string = new char[strlen(string)];
-    
-    int i;
-    for (i = 0; i < strlen(string) ; i++) {
-        *(this->string + i) = *(string + i);
-    }
-    *(this->string + i) = END;
+    strcpy(this->string, string);
+}
+
+String::String(const String& orig){
+    this->string = new char[orig.size()];
+    strcpy(this->string, orig.string);
+}
+
+String::~String() {
+    delete[] string;
 }
 
 String::String(const char c){
-    String("" + c);
+    this->string = new char[2];
+    string[0] = c;
+    string[1] = END;
 }
 
 String::String(const int number){
@@ -35,33 +40,38 @@ String::String(const int number){
     int numTemp;
     int size;
     
-    if(number < 0){
+    if(number >= 0){
         numTemp = number;
-        size = floor(log10(number)) + 1;
+        size = floor(log10(numTemp)) + 2;
     }else{
         numTemp = -number;
-        size = floor(log10(number)) + 2;
+        size = floor(log10(numTemp)) + 3;
     }
     
     this->string = new char[size];
     
-    for (int i = size; i >= 0; i--) {
-        *(this->string + i) = (char)(number / pow(10, i));
+    int limit = 0;
+    if(number < 0){
+        string[0] = '-';
+        limit = 1;
     }
+    
+    for (int i = size - 2; i >= limit; i--) {
+        char c = ((char)(numTemp % 10)) + '0';
+        string[i] = c;
+        numTemp /= 10;
+    }
+    
+    string[size - 1] = END;
 }
 
-String::String(const String& orig){
-    this->string = new char[orig.size()];
-    
-    memcpy(this->string, orig.string, orig.size());
+String::String(const double d){
+    this->string = new char[25];
+    sprintf(this->string, "%f", d);
 }
 
 unsigned String::size() const{
     return strlen(string);
-}
-
-String::~String() {
-    delete[] string;
 }
 
 void String::display(){
