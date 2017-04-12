@@ -44,7 +44,7 @@ public:
 private:
     char* string;
     const char END = '\0';
-    
+    const int BUFFER_SIZE = 25;
 };
 
 bool operator==(const String& orig1, const String& orig2);

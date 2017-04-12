@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdio.h>
+#include <stdexcept>
 #include "cstring.h"
 
 
@@ -60,7 +61,14 @@ int main(int argc, char** argv) {
     printf("%s\n", a);
     s10.display();
     
-    String s11;
+    String s11("ABCDEFGH");
+    try{
+        s11.substring(3,3).display();
+        s11.substring(3,15).display();
+        s11.substring(18,3).display();
+    }catch(const out_of_range& e){
+        cout << e.what() << endl;
+    }
     
     return 0;
 }

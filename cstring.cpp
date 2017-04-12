@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdexcept>
+#include <algorithm>
 
 String::String() : String(""){
 }
@@ -64,8 +65,8 @@ String::String(const int number){
 }
 
 String::String(const double d){
-    this->string = new char[25];
-    snprintf(this->string, 25 ,"%f", d);
+    string = new char[BUFFER_SIZE];
+    snprintf(string, BUFFER_SIZE ,"%f", d);
 }
 
 String::String(const bool b) : String((b ? "1" : "0")){}
@@ -91,7 +92,13 @@ String String::substring(unsigned int start, unsigned int length) const{
         throw std::out_of_range("String is smaller than start");
     }
     
-    char* s = new char[length];
+    length = std::min(length, size() - start);
+    
+    char* s = new char[length + 1];
+    strncpy(s, string + start, length);
+    s[length] = END;
+    
+    return String(s);
 }
 
 
