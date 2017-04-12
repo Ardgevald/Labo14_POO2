@@ -65,7 +65,7 @@ String::String(const int number){
 
 String::String(const double d){
     this->string = new char[25];
-    sprintf(this->string, "%30f", d);
+    sprintf(this->string, "%f", d);
 }
 
 String::String(const bool b) : String((b ? "1" : "0")){}
@@ -78,19 +78,26 @@ void String::display(){
     printf("%s\n", string);
 }
 
-String& String::concat(const String& orig) {
+String String::concat(const String& orig) {
     
+}
+
+String& String::append(const String& orig) {
+    char* s = new char[size() + orig.size() + 1];
+    strcpy(s, string);
+    strcpy(s + size(), orig.string);
+    
+    delete[] string;
+    string = s;
 }
 
 
 char& String::getChar(unsigned int index){
     if(index >= size()){
-        throw std::out_of_range("out of bounds");
+        throw std::out_of_range("out of range");
     }
     
-    char& c = string[index];
-    
-    return c;
+    return string[index];
 }
 
 char& String::operator[](unsigned int index){

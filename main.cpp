@@ -26,7 +26,8 @@ int main(int argc, char** argv) {
     String s7(true);
     String s8(false);
     String s9("Test");
-    s9[0] = "F";
+    s9.getChar(0) = 'F';
+    s9[1] = 'a';
     
     s1.display();
     s2.display();
@@ -36,6 +37,7 @@ int main(int argc, char** argv) {
     s6.display();
     s7.display();
     s8.display();
+    s9.display();
     
     return 0;
 }

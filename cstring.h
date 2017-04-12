@@ -28,12 +28,20 @@ public:
     char& getChar(unsigned int index);
     char& operator[](unsigned int index);
     
+    String concat(const String& orig);
+    String concat(const char c);
+    String concat(const char* const string);
+    
+    String& append(const String& orig);
+    String& append(const char c);
+    String& append(const char* const string);
+    
+    
+    
     
 private:
     char* string;
     const char END = '\0';
-    
-    String& concat(const String& orig);
     
 };
 
