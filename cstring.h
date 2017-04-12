@@ -7,6 +7,7 @@
 
 #ifndef CSTRING_H
 #define	CSTRING_H
+#include <iostream>
 
 class String {
 public:
@@ -27,6 +28,8 @@ public:
     
     char& getChar(unsigned int index);
     char& operator[](unsigned int index);
+    friend std::ostream& operator << (std::ostream&, const String&);
+
     
     String concat(const String& orig);
     String concat(const char c);

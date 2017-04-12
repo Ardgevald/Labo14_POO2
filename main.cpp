@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
     s7.display();
     s8.display();
     s9.display();
+    cout << s9 << endl;
     
     return 0;
 }

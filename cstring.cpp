@@ -104,3 +104,10 @@ char& String::operator[](unsigned int index){
     return getChar(index);
 }
 
+std::ostream& operator<<(std::ostream& os, const String& s) {
+   String copie(s);
+   for (int i = 0; i < s.size(); i++) {
+      os << copie[i];
+   }
+   return os;
+}
