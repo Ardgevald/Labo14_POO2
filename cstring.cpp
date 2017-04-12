@@ -79,9 +79,9 @@ bool String::equals(const String& orig) const {
     return strcmp(string, orig.string) == 0;
 }
 
-bool operator==(const String& orig1, const String& orig2) {
-    return orig1.equals(orig2);
-}
+//bool String::operator == (const String& orig1, const String& orig2) {
+//    return orig1.equals(orig2);
+//}
 
 const char* String::asCharArray() const{
     return string;
@@ -99,11 +99,6 @@ String String::substring(unsigned int start, unsigned int length) const{
     s[length] = END;
     
     return String(s);
-}
-
-
-void String::display(){
-    printf("%s\n", string);
 }
 
 String String::concat(const String& orig) {
@@ -140,14 +135,29 @@ String& String::append(const char* const orig) {
     delete[] string;
     string = s;
 }
+void String::setString(const String& orig){
+   this->string = orig.string;
+}
+
+void String::setString(char c){
+   char* temp = &c;
+   temp += '\0';
+   std::cout << temp << std::endl;
+   this->string = temp;
+}
+
+void String::setString(const char* const orig){
+   this->string = orig;
+}
 
 char& String::getChar(unsigned int index){
     if(index >= size()){
         throw std::out_of_range("out of range");
     }
-    
     return string[index];
 }
+
+
 
 char& String::operator[](unsigned int index){
     return getChar(index);
@@ -158,4 +168,42 @@ std::ostream& operator<<(std::ostream& os, const String& s) {
       os << copie[i];
    }
    return os;
+}
+//String String::operator =(const String& s){
+//   return ;
+//}
+//
+//String String::operator =(const char c){
+//   return c;
+//}
+//
+//String String::operator =(const char* const orig){
+//   return orig;
+//}
+
+String String::operator +=(const String& s){
+   return this->concat(s);
+}
+
+String String::operator +=(const char c){
+   return this->concat(c);
+}
+
+String String::operator +=(const char* const orig){
+   return this->concat(orig);
+}
+
+String operator+(String lhs, const String& rhs) {
+   lhs += rhs;
+   return lhs;
+}
+
+String operator +(String lhs, const char rhs){
+   lhs += rhs;
+   return lhs;
+}
+
+String operator +(String lhs, const char* const rhs){
+   lhs += rhs;
+   return lhs;
 }

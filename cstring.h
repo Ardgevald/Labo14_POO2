@@ -20,9 +20,7 @@ public:
     String(const int i);
     String(const double d);
     String(const bool b);
-    
-    void display();
-    
+        
     unsigned size() const;
     
     bool equals(const String& orig) const;
@@ -31,8 +29,6 @@ public:
     
     char& getChar(unsigned int index);
     char& operator[](unsigned int index);
-    friend std::ostream& operator << (std::ostream&, const String&);
-
     
     String substring(unsigned int start, unsigned int length) const;
     
@@ -44,13 +40,30 @@ public:
     String& append(const char c);
     String& append(const char* const orig);
     
+    void setString(const String& orig);
+    void setString(char c);
+    void setString(const char* const orig);
+    
+//    bool operator == (const String& orig1, const String& orig2);
+    friend std::ostream& operator << (std::ostream&, const String&);
+//    String& operator = (const String& s);
+//    String& operator = (const char c);
+//    String& operator = (const char* const orig);
+    
+    String operator += (const String& s);
+    String operator += (const char c);
+    String operator += (const char* const orig);
+    
+    friend String operator + (String lhs, const String& rhs);
+    friend String operator + (String lhs, const char rhs);
+    friend String operator + (String lhs, const char* const rhs);
+    
+    
 private:
     char* string;
     const char END = '\0';
     const int BUFFER_SIZE = 25;
 };
-
-bool operator==(const String& orig1, const String& orig2);
 
 #endif	/* CSTRING_H */
 
