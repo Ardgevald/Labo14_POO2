@@ -10,9 +10,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
+#include <stdexcept>
 
-String::String(){
-    String("");
+String::String() : String(""){
 }
 
 String::String(const char* const string){
@@ -20,9 +20,7 @@ String::String(const char* const string){
     strcpy(this->string, string);
 }
 
-String::String(const String& orig){
-    this->string = new char[orig.size()];
-    strcpy(this->string, orig.string);
+String::String(const String& orig) : String(orig.string){
 }
 
 String::~String() {
@@ -56,7 +54,7 @@ String::String(const int number){
         limit = 1;
     }
     
-    for (int i = size - 2; i >= limit; i--) {
+        for (int i = size - 2; i >= limit; i--) {
         char c = ((char)(numTemp % 10)) + '0';
         string[i] = c;
         numTemp /= 10;
@@ -67,8 +65,10 @@ String::String(const int number){
 
 String::String(const double d){
     this->string = new char[25];
-    sprintf(this->string, "%f", d);
+    sprintf(this->string, "%30f", d);
 }
+
+String::String(const bool b) : String((b ? "1" : "0")){}
 
 unsigned String::size() const{
     return strlen(string);
@@ -78,4 +78,22 @@ void String::display(){
     printf("%s\n", string);
 }
 
+String& String::concat(const String& orig) {
+    
+}
+
+
+char& String::getChar(unsigned int index){
+    if(index >= size()){
+        throw std::out_of_range("out of bounds");
+    }
+    
+    char& c = string[index];
+    
+    return c;
+}
+
+char& String::operator[](unsigned int index){
+    return getChar(index);
+}
 

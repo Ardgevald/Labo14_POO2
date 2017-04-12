@@ -5,7 +5,6 @@
  * Created on 17. mars 2017, 14:23
  */
 
-#include <typeinfo>
 #include <cstdlib>
 #include <iostream>
 #include "cstring.h"
@@ -23,8 +22,11 @@ int main(int argc, char** argv) {
     String s3(s2);
     String s4('T');
     String s5(-95);
-    String s6(-23.14159);
-    
+    String s6(23.14159);    
+    String s7(true);
+    String s8(false);
+    String s9("Test");
+    s9[0] = "F";
     
     s1.display();
     s2.display();
@@ -32,6 +34,8 @@ int main(int argc, char** argv) {
     s4.display();
     s5.display();
     s6.display();
+    s7.display();
+    s8.display();
     
     return 0;
 }

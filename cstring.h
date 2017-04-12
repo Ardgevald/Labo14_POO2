@@ -25,9 +25,16 @@ public:
     unsigned size() const;
     const char* asCharArray();
     
+    char& getChar(unsigned int index);
+    char& operator[](unsigned int index);
+    
+    
 private:
     char* string;
     const char END = '\0';
+    
+    String& concat(const String& orig);
+    
 };
 
 #endif	/* CSTRING_H */
