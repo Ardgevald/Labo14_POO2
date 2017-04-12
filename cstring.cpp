@@ -11,13 +11,14 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdexcept>
+#include <algorithm>
 
 String::String() : String(""){
 }
 
-String::String(const char* const string){
-    this->string = new char[strlen(string)];
-    strcpy(this->string, string);
+String::String(const char* const orig){
+    string = new char[strlen(orig)];
+    strcpy(string, orig);
 }
 
 String::String(const String& orig) : String(orig.string){
@@ -64,8 +65,8 @@ String::String(const int number){
 }
 
 String::String(const double d){
-    this->string = new char[25];
-    sprintf(this->string, "%f", d);
+    string = new char[BUFFER_SIZE];
+    snprintf(string, BUFFER_SIZE ,"%f", d);
 }
 
 String::String(const bool b) : String((b ? "1" : "0")){}
@@ -74,23 +75,71 @@ unsigned String::size() const{
     return strlen(string);
 }
 
+bool String::equals(const String& orig) const {
+    return strcmp(string, orig.string) == 0;
+}
+
+bool operator==(const String& orig1, const String& orig2) {
+    return orig1.equals(orig2);
+}
+
+const char* String::asCharArray() const{
+    return string;
+}
+
+String String::substring(unsigned int start, unsigned int length) const{
+    if(start > size()){
+        throw std::out_of_range("String is smaller than start");
+    }
+    
+    length = std::min(length, size() - start);
+    
+    char* s = new char[length + 1];
+    strncpy(s, string + start, length);
+    s[length] = END;
+    
+    return String(s);
+}
+
+
 void String::display(){
     printf("%s\n", string);
 }
 
 String String::concat(const String& orig) {
-    
+    String temp(this);
+    this->append(orig);
+    return temp;
+}
+
+String String::concat(const char* const orig) {
+    String temp(this);
+    this->append(orig);
+    return temp;
+}
+
+String String::concat(const char c) {
+    String temp(this);
+    this->append(c);
+    return temp;
 }
 
 String& String::append(const String& orig) {
-    char* s = new char[size() + orig.size() + 1];
+    return this->append(orig.string);
+}
+
+String& String::append(const char c) {
+    return this->append(&c);
+}
+
+String& String::append(const char* const orig) {
+    char* s = new char[size() + strlen(orig) + 1];
     strcpy(s, string);
-    strcpy(s + size(), orig.string);
+    strcpy(s + size(), orig);
     
     delete[] string;
     string = s;
 }
-
 
 char& String::getChar(unsigned int index){
     if(index >= size()){
@@ -103,7 +152,6 @@ char& String::getChar(unsigned int index){
 char& String::operator[](unsigned int index){
     return getChar(index);
 }
-
 std::ostream& operator<<(std::ostream& os, const String& s) {
    String copie(s);
    for (int i = 0; i < s.size(); i++) {
