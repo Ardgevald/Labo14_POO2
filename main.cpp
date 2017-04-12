@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <stdio.h>
 #include "cstring.h"
 
 
@@ -27,7 +28,12 @@ int main(int argc, char** argv) {
     String s8(false);
     String s9("Test");
     s9.getChar(0) = 'F';
-    s9[1] = 'a';
+    
+    char& c = s9[1];
+    cout << c << endl;
+    c = 'a';
+    String s10("Test");
+    s10.append("23").append(s5).append('!');
     
     s1.display();
     s2.display();
@@ -38,6 +44,23 @@ int main(int argc, char** argv) {
     s7.display();
     s8.display();
     s9.display();
+    s10.display();
+    
+    cout << boolalpha << s3.equals(s2) << endl;
+    
+    cout << s3.equals("Test") << endl;
+    cout << s4.equals('T') << endl;
+    cout << (s3 == s2) << endl;
+    cout << (s3 == "Test") << endl;
+    cout << (s4 == 'T') << endl;
+    cout << ('T' == s4) << endl;
+    
+    const char* a = s10.asCharArray();
+    a++;
+    printf("%s\n", a);
+    s10.display();
+    
+    String s11;
     
     return 0;
 }
