@@ -13,12 +13,17 @@
 #include <stdexcept>
 #include <algorithm>
 
+void String::allocate(const char* const orig){
+    unsigned int size = strlen(orig) + 1;
+    string = new char[size];
+    strncpy(string, orig, size);
+}
+
 String::String() : String(""){
 }
 
 String::String(const char* const orig){
-    string = new char[strlen(orig)];
-    strcpy(string, orig);
+    allocate(orig);
 }
 
 String::String(const String& orig) : String(orig.string){
@@ -29,9 +34,9 @@ String::~String() {
 }
 
 String::String(const char c){
-    this->string = new char[2];
-    string[0] = c;
-    string[1] = END;
+    char s[] = {c, END};
+    
+    allocate(s);
 }
 
 String::String(const int number){
@@ -69,7 +74,7 @@ String::String(const double d){
     snprintf(string, BUFFER_SIZE ,"%f", d);
 }
 
-String::String(const bool b) : String((b ? "1" : "0")){}
+String::String(const bool b) : String((b ? "true" : "false")){}
 
 unsigned String::size() const{
     return strlen(string);
@@ -79,9 +84,9 @@ bool String::equals(const String& orig) const {
     return strcmp(string, orig.string) == 0;
 }
 
-//bool String::operator == (const String& orig1, const String& orig2) {
-//    return orig1.equals(orig2);
-//}
+bool operator == (const String& orig1, const String& orig2) {
+    return orig1.equals(orig2);
+}
 
 const char* String::asCharArray() const{
     return string;
@@ -98,23 +103,27 @@ String String::substring(unsigned int start, unsigned int length) const{
     strncpy(s, string + start, length);
     s[length] = END;
     
+    String newS(s);
+    
+    delete[] s;
+    
     return String(s);
 }
 
 String String::concat(const String& orig) {
-    String temp(this);
+    String temp(*this);
     this->append(orig);
     return temp;
 }
 
 String String::concat(const char* const orig) {
-    String temp(this);
+    String temp(*this);
     this->append(orig);
     return temp;
 }
 
 String String::concat(const char c) {
-    String temp(this);
+    String temp(*this);
     this->append(c);
     return temp;
 }
@@ -129,25 +138,29 @@ String& String::append(const char c) {
 
 String& String::append(const char* const orig) {
     char* s = new char[size() + strlen(orig) + 1];
-    strcpy(s, string);
-    strcpy(s + size(), orig);
+    strncpy(s, string, size());
+    strncpy(s + size(), orig, strlen(orig) + 1);
+    s[size() + strlen(orig) + 1] = END;
     
     delete[] string;
     string = s;
 }
+
 void String::setString(const String& orig){
-   this->string = orig.string;
+    setString(orig.string);
 }
 
 void String::setString(char c){
-   char* temp = &c;
-   temp += '\0';
-   std::cout << temp << std::endl;
-   this->string = temp;
+    delete[] string;
+    
+    char s[] = {c, END};
+    allocate(s);
 }
 
 void String::setString(const char* const orig){
-   this->string = orig;
+    delete[] string;
+    
+    allocate(orig);
 }
 
 char& String::getChar(unsigned int index){
@@ -157,53 +170,44 @@ char& String::getChar(unsigned int index){
     return string[index];
 }
 
-
-
 char& String::operator[](unsigned int index){
     return getChar(index);
 }
+
 std::ostream& operator<<(std::ostream& os, const String& s) {
    String copie(s);
    for (int i = 0; i < s.size(); i++) {
-      os << copie[i];
+      os << copie.string[i];
    }
    return os;
 }
-//String String::operator =(const String& s){
-//   return ;
-//}
-//
-//String String::operator =(const char c){
-//   return c;
-//}
-//
-//String String::operator =(const char* const orig){
-//   return orig;
-//}
+
+String& String::operator =(const String& s){
+    setString(s);
+}
 
 String String::operator +=(const String& s){
-   return this->concat(s);
+   return this->append(s);
 }
 
 String String::operator +=(const char c){
-   return this->concat(c);
+   return this->append(c);
 }
 
 String String::operator +=(const char* const orig){
-   return this->concat(orig);
+   return this->append(orig);
 }
 
 String operator+(String lhs, const String& rhs) {
-   lhs += rhs;
-   return lhs;
+    return lhs.concat(rhs);
 }
 
-String operator +(String lhs, const char rhs){
-   lhs += rhs;
-   return lhs;
-}
-
-String operator +(String lhs, const char* const rhs){
-   lhs += rhs;
-   return lhs;
-}
+//String operator +(String lhs, const char rhs){
+//   lhs += rhs;
+//   return lhs;
+//}
+//
+//String operator +(String lhs, const char* const rhs){
+//   lhs += rhs;
+//   return lhs;
+//}

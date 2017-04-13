@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <stdexcept>
 #include "cstring.h"
@@ -14,53 +15,64 @@
 
 using namespace std;
 
-/*
- * 
- */
+void displayTestMessage(const char* message,const char* expectedResult ,const String& s){
+    cout << left << setw(30) << message << endl
+         << setw(8) << expectedResult << " : " << s << endl;
+}
+
 int main(int argc, char** argv) {
 
-    String s1("Test1");
-    String s2("Test2");
-    String s3(s2);
+    String s1("Test");
+    displayTestMessage("Constructeur via const char *", "Test", s1);
+    
+    String s2(s1);
+    displayTestMessage("Constructeur de copie", "Test", s2);
+    
     String s4('T');
+    displayTestMessage("Constructeur via char", "T", s4);
+    
     String s5(-95);
-    String s6(23.14159);    
+    displayTestMessage("Constructeur via int", "-95", s5);
+    
+    String s6(-23.14159);  
+    displayTestMessage("Constructeur via double", "-23.141590", s6);
+    
     String s7(true);
-    String s8(false);
+    displayTestMessage("Constructeur via bool", "true", s7);
+    
     String s9("Test");
     s9.getChar(0) = 'F';
+    displayTestMessage("Remplacement de caractere via getchar()", "Fest", s9);
+    
+    char& c = s9[1];
+    c = 'a';
+    displayTestMessage("Remplacement de caractere via []", "Fast", s9);
     
     s1.setString('c');
-    cout << s1 << endl;
+    displayTestMessage("Remplacement d'une string par une autre via setString", "c", s1);
     
-//    char& c = s9[1];
-//    cout << c << endl;
-//    c = 'a';
-//    String s10("Test");
-//    s10.append("23").append(s5).append('!');
-//    
-//    cout << s1 << endl;
-//    cout << s2 << endl;
-//    cout << s3 << endl;
-//    cout << s4 << endl;
-//    cout << s5 << endl;
-//    cout << s6 << endl;
-//    cout << s7 << endl;
-//    cout << s8 << endl;
-//    cout << s9 << endl;
-//    cout << s10 << endl;    
-//    cout << boolalpha << s3.equals(s2) << endl;
-//    cout << s3.equals("Test") << endl;
+    s1 = "Retest";
+    displayTestMessage("Remplacement d'une string par une autre via =", "Retest", s1);
+    
+    s1 = 23;
+    displayTestMessage("Remplacement d'une string par une autre via = (int)", "23", s1);
+    
+    s1 = s1 + s1;
+    displayTestMessage("Concatenation de deux chaines avec + ", "2323", s1);
+    
+    
+//    cout << boolalpha << s1.equals(s2) << endl;
+//    cout << s2.equals("Test") << endl;
 //    cout << s4.equals('T') << endl;
-//    cout << (s3 == s2) << endl;
-//    cout << (s3 == "Test") << endl;
+//    cout << (s1 == s2) << endl;
+//    cout << (s1 == "Test") << endl;
 //    cout << (s4 == 'T') << endl;
 //    cout << ('T' == s4) << endl;
-    
-//    const char* a = s10.asCharArray();
+//    
+//    const char* a = s7.asCharArray();
 //    a++;
 //    printf("%s\n", a);
-//    cout << s10 << endl;
+//    cout << s7 << endl;
 //    
 //    String s11("ABCDEFGH");
 //    try{
@@ -72,4 +84,3 @@ int main(int argc, char** argv) {
 //    }
     return 0;
 }
-

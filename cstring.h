@@ -44,26 +44,27 @@ public:
     void setString(char c);
     void setString(const char* const orig);
     
-//    bool operator == (const String& orig1, const String& orig2);
     friend std::ostream& operator << (std::ostream&, const String&);
-//    String& operator = (const String& s);
-//    String& operator = (const char c);
-//    String& operator = (const char* const orig);
-    
+    String& operator = (const String& s);
+
     String operator += (const String& s);
     String operator += (const char c);
     String operator += (const char* const orig);
     
     friend String operator + (String lhs, const String& rhs);
-    friend String operator + (String lhs, const char rhs);
-    friend String operator + (String lhs, const char* const rhs);
+//    friend String operator + (String lhs, const char rhs);
+//    friend String operator + (String lhs, const char* const rhs);
     
     
 private:
     char* string;
     const char END = '\0';
     const int BUFFER_SIZE = 25;
+    
+    void allocate(const char* const orig);
 };
+
+bool operator == (const String& orig1, const String& orig2);
 
 #endif	/* CSTRING_H */
 
