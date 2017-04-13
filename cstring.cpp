@@ -213,13 +213,3 @@ String String::operator+=(const char* const orig) {
 String operator+(String lhs, const String& rhs) {
     return lhs.concat(rhs);
 }
-
-//String operator +(String lhs, const char rhs){
-//   lhs += rhs;
-//   return lhs;
-//}
-//
-//String operator +(String lhs, const char* const rhs){
-//   lhs += rhs;
-//   return lhs;
-//}

@@ -20,85 +20,86 @@
 
 class String {
 public:
-   /**
-    * Constructeur vide
-    */
+    /**
+     * Constructeur vide
+     */
     String();
-    
+
     /**
      * Constructeur de copie
      * @param orig la string a copier
      */
     String(const String& orig);
-    
+
     /**
      * Destructeur
      */
     virtual ~String();
-    
+
     /**
      * Constructeur pour une chaine de caractères
      * @param string
      */
     String(const char* const string);
-    
+
     /**
      * Constructeur pour un caractère unique
      * @param c
      */
     String(const char c);
-    
+
     /**
      * Constructeur pour un int
      * @param i
-     */    
+     */
     String(const int i);
-    
+
     /**
      * Constructeur pour un double
      * @param d
      */
     String(const double d);
-    
+
     /**
      * Constructeur pour un booleen
      * @param b
      */
     String(const bool b);
-    
+
     /**
      * Taille de la string
      * @return taille
      */
     unsigned size() const;
-    
+
     /**
      * Verifie si deux instance de string sont égales
      * @param orig string a comparer
      * @return true ou false
      */
     bool equals(const String& orig) const;
-    
+
     /**
      * Retourne la string en temps que tableau de caractères constant
      * @return tableau de char constant
      */
     const char* asCharArray() const;
-    
+
     /**
      * Retourne un caratctere a un index donner et permet de le modifier.
      * @param index
      * @return caractere voulu
      */
     char& getChar(unsigned int index);
-    
+
     /**
-     * Surcharge de l'opérateur [], permet un acces a un caractere voulu et modifiable
+     * Surcharge de l'opérateur [], permet un acces a un caractere voulu
+     * et modifiable
      * @param index
      * @return caractere
      */
     char& operator[](unsigned int index);
-    
+
     /**
      * Crée une sous-string d'une string
      * @param start : le début voulu
@@ -106,7 +107,7 @@ public:
      * @return la sous string
      */
     String substring(unsigned int start, unsigned int length) const;
-    
+
     /**
      * Permet la concatenation de d'une String, d'un caractère ou d'une chaine de
      * caractère
@@ -116,7 +117,7 @@ public:
     String concat(const String& orig) const;
     String concat(const char c) const;
     String concat(const char* const orig) const;
-    
+
     /**
      * Permet la concatenation de d'une String, d'un caractère ou d'une chaine de
      * caractère
@@ -126,7 +127,7 @@ public:
     String& append(const String& orig);
     String& append(const char c);
     String& append(const char* const orig);
-    
+
     /**
      * Permet de modifier l'instance d'une String (changer la chaine de caractère)
      * @param orig
@@ -134,49 +135,41 @@ public:
     void setString(const String& orig);
     void setString(char c);
     void setString(const char* const orig);
-    
+
     /**
      * Surcharge de l'opérateur << pour permettre un affichage de la String
      * @param s
      * @return 
      */
-    friend std::ostream& operator << (std::ostream&, const String& s);
-    
+    friend std::ostream& operator<<(std::ostream&, const String& s);
+
     /**
      * Surcharges de l'opérateur = pour l'affectation
      * @param : String, caractère ou chaine de caractère.
      * @return 
      */
-    String& operator = (const String& s);
+    String& operator=(const String& s);
 
     /**
      * Surcharges de l'opérateur += pour l'affectation
      * @param : String, caractère ou chaine de caractère.
      * @return 
      */
-    String operator += (const String& s);
-    String operator += (const char c);
-    String operator += (const char* const orig);
-    
-    /**
-     * Surcharge de l'opérateur + pour permettre une concatenation de deux String
-     * @param lhs et rhs les 2 opérandes
-     */
-    friend String operator + (String lhs, const String& rhs);
-//    friend String operator + (String lhs, const char rhs);
-//    friend String operator + (String lhs, const char* const rhs);
-    
-    
+    String operator+=(const String& s);
+    String operator+=(const char c);
+    String operator+=(const char* const orig);
+
+
 private:
-   // chaine de caractère qui représente la string
+    // chaine de caractère qui représente la string
     char* string;
-    
+
     //caractère de fin de chaine
     const char END = '\0';
-    
+
     //taille max du buffer
     const int BUFFER_SIZE = 25;
-    
+
     //Fonction d'allocation de mémoire pour le setString
     void allocate(const char* const orig);
 };
@@ -187,7 +180,13 @@ private:
  * @param orig2
  * @return true ou false
  */
-bool operator == (const String& orig1, const String& orig2);
+bool operator==(const String& orig1, const String& orig2);
+
+/**
+ * Surcharge de l'opérateur + pour permettre une concatenation de deux String
+ * @param lhs et rhs les 2 opérandes
+ */
+String operator+(String lhs, const String& rhs);
 
 #endif	/* CSTRING_H */
 
