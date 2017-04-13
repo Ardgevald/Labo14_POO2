@@ -6,7 +6,7 @@
  Date        : 13.04.2017
 
  But         : Fourni une classe représentant une string, a la manière de la lib
-               Srting
+               String
 
  Remarque(s) : R.A.S
 
