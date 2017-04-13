@@ -16,8 +16,8 @@
 using namespace std;
 
 void displayTestMessage(const char* message,const char* expectedResult ,const String& s){
-    cout << left << setw(30) << message << endl
-         << setw(8) << expectedResult << " : " << s << endl;
+    cout << boolalpha << message << endl
+         << left << setw(10) << expectedResult << " : " << s << endl << endl;
 }
 
 int main(int argc, char** argv) {
@@ -57,30 +57,55 @@ int main(int argc, char** argv) {
     s1 = 23;
     displayTestMessage("Remplacement d'une string par une autre via = (int)", "23", s1);
     
-    s1 = s1 + s1;
-    displayTestMessage("Concatenation de deux chaines avec + ", "2323", s1);
+    s2 = s1 + s1;
+    displayTestMessage("Concatenation de deux String avec + ", "2323", s2);
+    
+    s2 = s1 + s1 + "Test";
+    displayTestMessage("Concatenation de deux String et une chaine avec +", "2323Test", s2);
+    
+    s2 = 23;
+    s2 += "Test";
+    displayTestMessage("Concatenation sur une chaîne avec +=", "23Test", s2);
+    
+    s2 = s1.equals(s1);
+    displayTestMessage("Comparaison de Strings", "true", s2);
+    
+    s2 = s9.equals("Fast");
+    displayTestMessage("Comparaison de String avec chaine", "true", s2);
+    
+    s9 = 'T';
+    s2 = s9.equals('T');
+    displayTestMessage("Comparaison de String avec char", "true", s2);
+    
+    String s3("Test");
+    s1 = "Test";
+    
+    s2 = s1 == s3;
+    displayTestMessage("Comparaison de Strings avec ==", "true", s2);
+    
+    s2 = s1 == "Test";
+    displayTestMessage("Comparaison de String et chaine avec ==", "true", s2);
+    
+    s2 = s9 == 'T';
+    displayTestMessage("Comparaison de String et char avec ==", "true", s2);
+    
+    displayTestMessage("Utilisation de asCharArray", s1.asCharArray(), s1);
+    
+    String s11("ABCDEFGH");
+    String s12;
+    try{
+        s12 = s11.substring(3,3);
+        displayTestMessage("Substring valide dans la String", "DEF", s12);
+        
+        s12 = s11.substring(3,15);
+        displayTestMessage("Substring trop grand dans la String", "DEFGH", s12);
+        
+        s12 = s11.substring(18,3);
+        displayTestMessage("Substring invalide dans la String", "Erreur", s12);
+    }catch(const out_of_range& e){
+        cout << e.what() << endl;
+    }
     
     
-//    cout << boolalpha << s1.equals(s2) << endl;
-//    cout << s2.equals("Test") << endl;
-//    cout << s4.equals('T') << endl;
-//    cout << (s1 == s2) << endl;
-//    cout << (s1 == "Test") << endl;
-//    cout << (s4 == 'T') << endl;
-//    cout << ('T' == s4) << endl;
-//    
-//    const char* a = s7.asCharArray();
-//    a++;
-//    printf("%s\n", a);
-//    cout << s7 << endl;
-//    
-//    String s11("ABCDEFGH");
-//    try{
-//        cout << s11.substring(3,3) << endl;
-//        cout << s11.substring(3,15) << endl;
-//        cout << s11.substring(18,3) << endl;
-//    }catch(const out_of_range& e){
-//        cout << e.what() << endl;
-//    }
     return 0;
 }

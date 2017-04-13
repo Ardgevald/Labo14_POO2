@@ -32,9 +32,9 @@ public:
     
     String substring(unsigned int start, unsigned int length) const;
     
-    String concat(const String& orig);
-    String concat(const char c);
-    String concat(const char* const orig);
+    String concat(const String& orig) const;
+    String concat(const char c) const;
+    String concat(const char* const orig) const;
     
     String& append(const String& orig);
     String& append(const char c);
