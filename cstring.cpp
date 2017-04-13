@@ -1,9 +1,18 @@
-/* 
- * File:   cstring.cpp
- * Author: Miguel-Portable
- * 
- * Created on 17. mars 2017, 14:34
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : Labo 14
+ Fichier     : cstring.cpp
+ Auteur(s)   : Théo Gallandat & Miguel Pombo Dias
+ Date        : 13.04.2017
+
+ But         : Fourni l'implémentation de la classe String
+
+ Remarque(s) : R.A.S
+
+ Compilateur : MinGW-g++ 4.8.1
+ -----------------------------------------------------------------------------------
  */
+
 
 #include "cstring.h"
 
